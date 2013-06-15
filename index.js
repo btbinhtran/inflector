@@ -22,7 +22,8 @@ exports = module.exports = text;
  *
  *    text('messages')
  *
- * @param {String} key
+ * @param {String} key A word or a string containing no whitespace.
+ * @param {String} val The text value.
  * @api public
  */
 
@@ -32,12 +33,25 @@ function text(key, val) {
     : (locale[key] = new Text).one(val);
 }
 
+/**
+ * Check if locale exists.
+ *
+ * @param {String} key The locale key.
+ * @return {Boolean} true if locale exists, else false.
+ * @api public
+ */
+
 exports.has = function(key){
   return !!locale[key];
 };
 
 /**
  * Set locale.
+ *
+ * @chainable
+ * @param {String} val A text locale key.
+ * @return {Function} exports The main `text` function.
+ * @api public
  */
 
 exports.locale = function(val){
@@ -52,9 +66,10 @@ exports.locale = function(val){
 exports.locale('en');
 
 /**
- * Instantiate a new `Text`.
+ * Class representing text.
  *
- * @api private
+ * @class
+ * @api public
  */
 
 function Text() {
@@ -62,7 +77,11 @@ function Text() {
 }
 
 /**
- * @param {String} string
+ * Return a past tense text.
+ *
+ * @chainable
+ * @param {String} string Any supported language text.
+ * @return {Text}
  * @api public
  */
 
@@ -71,7 +90,11 @@ Text.prototype.past = function(string){
 };
 
 /**
- * @param {String} string
+ * Return a present tense text.
+ *
+ * @chainable
+ * @param {String} string Any supported language text.
+ * @return {Text}
  * @api public
  */
 
@@ -80,7 +103,11 @@ Text.prototype.present = function(string){
 };
 
 /**
- * @param {String} string
+ * Return a future tense text.
+ *
+ * @chainable
+ * @param {String} string Any supported language text.
+ * @return {Text}
  * @api public
  */
 
@@ -89,9 +116,15 @@ Text.prototype.future = function(string){
 };
 
 /**
- * @param {String} string
- * @param {String} tense
- * @param {String} count
+ * Return any tense text.
+ *
+ * Tenses: past, present, future
+ *
+ * @chainable
+ * @param {String} string Any supported language text.
+ * @param {String} tense A tense: past, present, future
+ * @param {String} count The pluralization count.
+ * @return {Text}
  * @api public
  */
 
@@ -100,7 +133,11 @@ Text.prototype.tense = function(string, tense, count){
 };
 
 /**
- * @param {String} string
+ * Return a zero pluralized text.
+ *
+ * @chainable
+ * @param {String} string Any supported language text.
+ * @return {Text}
  * @api public
  */
 
@@ -109,7 +146,11 @@ Text.prototype.none = function(string){
 };
 
 /**
- * @param {String} string
+ * Return a singular text.
+ *
+ * @chainable
+ * @param {String} string Any supported language text.
+ * @return {Text}
  * @api public
  */
 
@@ -118,7 +159,11 @@ Text.prototype.one = function(string){
 };
 
 /**
- * @param {String} string
+ * Return a pluralized text.
+ *
+ * @chainable
+ * @param {String} string Any supported language text.
+ * @return {Text}
  * @api public
  */
 
@@ -127,9 +172,13 @@ Text.prototype.other = function(string){
 };
 
 /**
- * @param {String} string
- * @param {String} count
- * @param {String} tense
+ * Return an inflected string.
+ *
+ * @chainable
+ * @param {String} string Any supported language text.
+ * @param {String} count The pluralization count.
+ * @param {String} tense Specified tense string.
+ * @return {Text}
  * @api public
  */
 
@@ -147,7 +196,8 @@ Text.prototype.inflection = function(string, count, tense){
 /**
  * This could be a view on the client.
  *
- * @param {Object} options
+ * @param {Object} options Rendering options.
+ * @return {String} The inflected text string.
  * @api public
  */
 
